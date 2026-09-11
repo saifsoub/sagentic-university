@@ -1,0 +1,41 @@
+name: University Validation
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "package.json"
+      - "wrangler.jsonc"
+      - "README.md"
+      - "PUBLIC_LAUNCH_CANDIDATE.md"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Bundle without deployment
+        run: npx wrangler deploy --dry-run --outdir dist
+      - name: Reject removed unsupported public claims
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden='500\+|50\+|12 Specialized Research Labs|98% Graduate Placement|September 2025|Applications Open'
+          if grep -E -n "$forbidden" README.md; then
+            echo "Unsupported/stale public claim detected in README.md"
+            exit 1
+          fi
+      - name: Verify launch candidate remains explicitly gated
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F "not approved for public publication" PUBLIC_LAUNCH_CANDIDATE.md
+          grep -F "Public applications are not represented as open" README.md
