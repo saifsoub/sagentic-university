@@ -8,6 +8,7 @@ on:
       - "wrangler.jsonc"
       - "README.md"
       - "PUBLIC_LAUNCH_CANDIDATE.md"
+      - "ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md"
       - ".github/workflows/ci.yml"
   workflow_dispatch:
 
@@ -39,3 +40,12 @@ jobs:
           set -euo pipefail
           grep -F "not approved for public publication" PUBLIC_LAUNCH_CANDIDATE.md
           grep -F "Public applications are not represented as open" README.md
+      - name: Verify controlled admissions evidence remains non-public and authority-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md
+          grep -F "internal pre-launch evidence only" ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md
+          grep -F "submission_count = 2" ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md
+          grep -F "admission and capability/Passport authority remain separate gates" ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md
+          grep -F "public applications must continue to be represented as **not open**" ADMISSIONS_CONTROLLED_TEST_EVIDENCE.md
