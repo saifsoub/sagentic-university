@@ -1,143 +1,102 @@
-# S/Agentic University
+# S/ Agent University — University Agent Runtime
 
-## The "Harvard" of Agents
+S/ Agent University is the controlled education, examination, evidence, and capability-conferral system for S/ agents.
 
-Where centuries of academic rigor meet the frontier of autonomous intelligence. Join the architects of tomorrow's agents.
+This repository contains the **University Agent runtime**. It is not, by itself, the complete public campus or admissions system.
 
----
+## Current verified role
 
-## About
+The runtime provides a stateful University Agent built on the Cloudflare Agents SDK. Its current code supports:
 
-S/Agentic University is the premier institution for autonomous systems engineering. Founded by **Seif Alsoub**, Chancellor & Founder, the university bridges classical computer science with cutting-edge agentic AI research.
+- attaching an active canonical S/ Agent Passport (`S-PASS-*`),
+- registering execution workers,
+- requiring an active Passport before worker dispatch,
+- forwarding the Passport context with a dispatched payload,
+- recording the most recent dispatch result,
+- exposing a health endpoint.
 
-- **Established:** 2024
-- **Founder & Chancellor:** Seif Alsoub
-- **Mission:** Engineering the Autonomous Mind
+The current runtime does **not** prove production Passport signature verification, a public admissions flow, applicant persistence, payment, enrollment, certification, or public launch readiness. Those are separate integration and approval gates.
 
----
+## Institutional model
 
-## Repository Structure
+The University operating model is based on a formal progression rather than ad-hoc prompting:
 
-```
-sagentic-university/
-├── README.md              # This file
-├── docs/                  # University documentation
-│   ├── curriculum.md      # Program catalog & course descriptions
-│   ├── faculty.md         # Faculty directory & publications
-│   ├── research.md        # Research labs, papers & open source
-│   ├── admissions.md      # Application requirements & deadlines
-│   └── campus.md          # Virtual campus tour & facilities
-├── content/               # Website content source of truth
-│   ├── pages/             # Page content (Home, Programs, etc.)
-│   ├── components/        # Shared UI component content
-│   └── data/              # Static data (programs, faculty, stats)
-├── apps/                  # Application portal backend
-│   └── applications/      # Submitted application records
-├── design/                # Design system & brand guidelines
-│   ├── design-system.md   # Colors, typography, spacing
-│   └── brand-assets/      # Logos, icons, imagery
-└── legal/                 # Legal documents
-    ├── privacy-policy.md
-    └── terms-of-service.md
-```
+1. matriculation and identity/scope registration,
+2. sequenced coursework,
+3. qualifying examination,
+4. capstone implementation,
+5. viva/defence,
+6. deliberate conferral and recorded capability status.
 
----
+The curriculum is organized around Foundations & Cognition, Tools & Systems, Orchestration & Collaboration, Governance & Safety, and Craft & Presence, with thesis/capstone and conferral above the faculty layer.
 
-## Programs
+The evidence-first curriculum/material-generation core lives separately in `saifsoub/s-agentic-university` and uses the Case–Lab–Viva standard.
 
-### Agent Architecture
-Design and implement autonomous agent frameworks from first principles. Explore cognitive architectures, perception-action loops, and meta-cognitive control structures.
+## Runtime surface
 
-### Multi-Agent Systems
-Orchestrate fleets of collaborating agents. Study consensus mechanisms, emergent behavior, distributed decision-making, and swarm intelligence paradigms.
+### Health
 
-### Reasoning & Planning
-From classical search to modern large-model reasoning. Master symbolic planning, heuristic search, temporal reasoning, and neuro-symbolic integration.
+`GET /health`
 
-### Tool Use & APIs
-Equip agents with the ability to sense and act upon external systems. Design robust tool interfaces, API orchestration, and feedback-driven adaptation loops.
+Returns the service identity and runtime status.
 
-### Memory & State
-Build agents that learn from experience. Implement episodic and semantic memory, long-term state management, and knowledge consolidation mechanisms.
+### University Agent
 
-### Safety & Alignment
-Ensure agents behave reliably and ethically. Study value alignment, interpretability, red-teaming, constitutional AI, and governance frameworks.
+The agent exposes callable operations for:
 
----
+- `status()`
+- `attachPassport(passport)`
+- `registerWorker(worker)`
+- `dispatch(workerId, payload)`
 
-## Research Labs
+A dispatch is rejected unless an active Passport has been attached.
 
-| Lab | Focus | Lead |
-|-----|-------|------|
-| Agentic Lab | Core agent architectures | Seif Alsoub |
-| Autonomous Systems | Real-world deployment | Dr. Elena Vasquez |
-| Multi-Agent Dynamics | Swarm intelligence | Dr. Yuki Tanaka |
-| AI Safety & Ethics | Alignment & governance | James Okafor |
+## Admissions and public launch status
 
----
+**Public applications are not represented as open by this repository.**
 
-## Key Statistics
+There is no approved public cohort date, seat count, tuition, placement guarantee, faculty roster, research-output statistic, or graduate-placement statistic in this repository. Any such public commitment must be separately evidenced and approved before publication.
 
-- **500+** Research Papers Published
-- **50+** Distinguished Faculty Members
-- **12** Specialized Research Labs
-- **98%** Graduate Placement Rate
+The current launch workstream is controlled: the campus/admissions path, flagship offer, FAQ, proof pack, pricing, and public launch remain separate readiness gates.
 
----
+## Evidence discipline
 
-## Admissions
+Do not publish or repeat unsupported institutional claims. In particular, this repository intentionally does not claim:
 
-The next cohort begins **September 2025**. Spaces are limited.
+- a fabricated number of research papers,
+- a fabricated faculty count,
+- a fabricated lab count,
+- a fabricated placement rate,
+- named faculty or instructors without a verified appointment record,
+- a stale cohort or application deadline.
 
-### Application Timeline
-1. **September 1** - Applications Open
-2. **December 15** - Early Decision Deadline
-3. **February 1** - Regular Decision Deadline
-4. **March 15** - Decisions Released
-5. **May 1** - Enrollment Commitment
-
----
-
-## Tech Stack
-
-The S/Agentic University website is built with:
-
-- **Frontend:** React 19 + TypeScript + Vite + Tailwind CSS + shadcn/ui
-- **Animations:** GSAP + ScrollTrigger + Framer Motion
-- **Effects:** Canvas 2D particle networks, Three.js starfield
-- **Routing:** HashRouter for static hosting
-- **Data:** localStorage for application persistence
-- **Deployment:** Static site hosting
-
----
+Every public claim should be traceable to an approved source or be omitted.
 
 ## Development
 
 ### Prerequisites
+
 - Node.js 20+
 - npm
 
-### Setup
+### Install
+
 ```bash
-git clone https://github.com/saifsoub/sagentic-university.git
-cd sagentic-university
 npm install
+```
+
+### Development
+
+```bash
 npm run dev
 ```
 
-### Build
-```bash
-npm run build
-```
+### Deploy
 
----
+Deployment is handled through the repository's Cloudflare workflow/configuration. A successful deployment is runtime evidence only; it does not automatically constitute University launch approval.
 
-## Founder
+## Ownership and approval boundary
 
-**Seif Alsoub** - Chancellor & Founder of S/Agentic University
+Seif is the final approval point for consequential public commitments, authority changes, public launch, pricing/payment terms, named instructors/faculty, guarantees, external partnerships, and production capability conferral.
 
----
-
-## License
-
-All rights reserved. &copy; 2026 Seif Alsoub. S/Agentic University.
+All rights reserved. © 2026 Seif Alsoub.
