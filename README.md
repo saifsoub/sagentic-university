@@ -1,4 +1,4 @@
-# S/Agentic University — moved
+# Agentic University — moved
 
 The current source and future work live at [saifsoub/s-agentic-university](https://github.com/saifsoub/s-agentic-university).
 
